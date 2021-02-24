@@ -1,6 +1,6 @@
 # Проект 4: Место
 
-* [Ссылка на проект]( https://vadimbalashov.github.io/russian-travel/index.html )
+* [Ссылка на проект]( https://vadimbalashov.github.io/mesto/index.html )
 
 ## Задачи
 
