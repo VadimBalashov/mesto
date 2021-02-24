@@ -1,0 +1,16 @@
+.popup__submit{
+    width: 358px;
+    display: flex;
+    margin: 18px auto 37px;
+    background: #000000;
+    border-radius: 2px;
+}
+.popup__submit:hover{
+    opacity: 0.8;
+}
+@media screen and (max-width: 580px) {
+    .popup__submit{
+        width: 238px;
+        margin: 15px 22px 25px;
+    }
+}

@@ -1,0 +1,25 @@
+.profile__edit-butten{
+    background-color: black;
+    border: 1px solid #FFFFFF;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background-image: url(../../../images/pencil.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 0;
+    margin: 0;
+    margin-top: 15px;
+    margin-left: 18px;
+}
+.profile__edit-butten:hover{
+    opacity: 0.6;
+}
+@media screen and (max-width: 680px) {
+    .profile__edit-butten{
+        width: 18px;
+        height: 18px;
+        margin-top: 8px;
+        margin-left: 10px;
+    }
+}
