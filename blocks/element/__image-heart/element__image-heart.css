@@ -1,15 +1,19 @@
-.elements__image-heart{
+.element__image-heart{
     margin: 0;
     padding: 0;
     width: 22px;
     background-image: url(../../../images/heart.svg);
     background-repeat: no-repeat;
     background-position: center;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+    transition: 0.5s;
 }
-.elements__image-heart:hover{
+.element__image-heart:hover{
     opacity: 0.5;
 }
-.elements__image-heart:active{
+.element__image-heart:active{
     background-image: url(../../../images/heart_activ.svg);
     opacity: 1;
 }

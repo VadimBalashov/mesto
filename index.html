@@ -15,85 +15,86 @@
             <img src="images/logo.svg" class="logo" alt="Логотип">
         </header>
 
+<main class="main">
+
         <section class="profile">
             <img src="images/profile_avatar.jpg" class="profile__avatar" alt="Жак Ив Кусто">
             <div class="profile__info">
                 <div class="profile__row">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
-                    <button type="button" class="profile__edit-butten" id="show-popup"></button>
+                    <button type="button" class="profile__edit-button" aria-label="edit"></button>
                 </div>
                 <p class="profile__profession">Исследователь океана</p>
             </div>
-            <button class="profile__add-butten"></button>
+            <button type="button" class="profile__add-button" aria-label="add"></button>
         </section>
 
         <section class="elements">
             <ul class="elements__list">
-                <li class="elements__element">
-                    <img src="images/karachaevsk.jpg" class="elements__image" alt="Карачаевск">
-                    <div class="elements__description">
-                        <p class="elements__title">Карачаевск</p>
-                        <figure class="elements__image-heart"></figure>
+                <li class="element">
+                    <img src="images/karachaevsk.jpg" class="element__image" alt="Карачаевск">
+                    <div class="element__description">
+                        <h2 class="element__title">Карачаевск</h2>
+                        <button type="button" class="element__image-heart" aria-label="like"></button>
                     </div>
                 </li>
-                <li class="elements__element">
-                    <img src="images/elbrus.jpg" class="elements__image" alt="Эльбрус">
-                    <div class="elements__description">
-                        <p class="elements__title">Гора Эльбрус</p>
-                        <figure class="elements__image-heart"></figure>
+                <li class="element">
+                    <img src="images/elbrus.jpg" class="element__image" alt="Эльбрус">
+                    <div class="element__description">
+                        <h2 class="element__title">Гора Эльбрус</h2>
+                        <button type="button" class="element__image-heart" aria-label="like"></button>
                     </div>
                 </li>
-                <li class="elements__element">
-                    <img src="images/dombay.jpg" class="elements__image" alt="Домбай">
-                    <div class="elements__description">
-                        <p class="elements__title">Домбай</p>
-                        <figure class="elements__image-heart"></figure>
+                <li class="element">
+                    <img src="images/dombay.jpg" class="element__image" alt="Домбай">
+                    <div class="element__description">
+                        <h2 class="element__title">Домбай</h2>
+                        <button type="button" class="element__image-heart" aria-label="like"></button>
                     </div>
                 </li>
-                <li class="elements__element">
-                    <img src="images/elbrus.jpg" class="elements__image" alt="Эльбрус">
-                    <div class="elements__description">
-                        <p class="elements__title">Гора Эльбрус</p>
-                        <figure class="elements__image-heart"></figure>
+                <li class="element">
+                    <img src="images/elbrus.jpg" class="element__image" alt="Эльбрус">
+                    <div class="element__description">
+                        <h2 class="element__title">Гора Эльбрус</h2>
+                        <button type="button" class="element__image-heart" aria-label="like"></button>
                     </div>
                 </li>
-                <li class="elements__element">
-                    <img src="images/dombay.jpg" class="elements__image" alt="Домбай">
-                    <div class="elements__description">
-                        <p class="elements__title">Домбай</p>
-                        <figure class="elements__image-heart"></figure>
+                <li class="element">
+                    <img src="images/dombay.jpg" class="element__image" alt="Домбай">
+                    <div class="element__description">
+                        <h2 class="element__title">Домбай</h2>
+                        <button type="button" class="element__image-heart" aria-label="like"></button>
                     </div>
                 </li>
-                <li class="elements__element">
-                    <img src="images/karachaevsk.jpg" class="elements__image" alt="Карачаево-Черкесск">
-                    <div class="elements__description">
-                        <p class="elements__title">Карачаево-Ч...</p>
-                        <figure class="elements__image-heart"></figure>
+                <li class="element">
+                    <img src="images/karachaevsk.jpg" class="element__image" alt="Карачаево-Черкесск">
+                    <div class="element__description">
+                        <h2 class="element__title">Карачаево-Ч...</h2>
+                        <button type="button" class="element__image-heart" aria-label="like"></button>
                     </div>
                 </li>
             </ul>
         </section>
+    </main>
 
         <footer class="footer">
             <p class="footer__copyright">© 2020 Mesto Russia</p>
         </footer>
     </div>
 
-    <section class="popup">
+    <div class="popup">
         <form class="popup__container">
-            <p class="popup__title">Редактировать профиль</p>
-            <fieldset class="form">
-                <input type="name" class="form__input-name" placeholder="Жак-Ив Кусто">
-                <input type="text" class="form__input-job" placeholder="Исследователь океана">
+            <h3 class="popup__title">Редактировать профиль</h3>
+            <fieldset name="profile" class="popup__form">
+                <input type="text" class="popup__input popup__input_name" name="name" required placeholder="Имя">
+                <input type="text" class="popup__input popup__input_job" name="job" required placeholder="Род занятий">
             </fieldset>
-            <button type="submit" class="popup__submit">
-                <p class="popup__submit-text">Сохранить</p>
-            </button>
-            <button type="button" class="popup__close"></button>
+            <button type="submit" class="popup__submit">Сохранить</button>
+            <button type="button" class="popup__close" aria-label="close"></button>
         </form>
-    </section>
+    </div>
 
-    <script type="text/javascript" src="script/script.js"></script>
+    <script src="script/script.js"></script>
 </body>
 
 </html>
