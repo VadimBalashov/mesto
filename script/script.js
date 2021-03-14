@@ -1,24 +1,27 @@
-let showPopupButtonEdit = document.querySelector('.profile__edit-button');
-let showPopupButtonAdd = document.querySelector('.profile__add-button');
-let showPopupButtonImages = document.querySelector('.element');
-let popup = document.querySelector('.popup')
+const showPopupButtonEdit = document.querySelector('.profile__edit-button');
+const showPopupButtonAdd = document.querySelector('.profile__add-button');
+const showPopupButtonImages = document.querySelector('.element');
 const editFormPopup = document.querySelector('.popup_type_edit');
 const editFormPopupClose = editFormPopup.querySelector('.popup__close');
 const cardFormPopup = document.querySelector('.popup_type_add');
 const addFormPopupClose = cardFormPopup.querySelector('.popup__close');
 const imageFormPopup = document.querySelector('.popup_type_image');
 const imageFormPopupClose = imageFormPopup.querySelector('.popup__close');
-let formElement = document.querySelector('.popup__container');
-let nameInput = document.querySelector('.popup__input_type_name');
-let jobInput = document.querySelector('.popup__input_type_description');
-let username = document.querySelector('.profile__title');
-let profession = document.querySelector('.profile__profession');
+const formElement = document.querySelector('.popup__container');
+const nameInput = document.querySelector('.popup__input_type_name');
+const jobInput = document.querySelector('.popup__input_type_description');
+const username = document.querySelector('.profile__title');
+const profession = document.querySelector('.profile__profession');
 const popupTitle = document.querySelector('.popup__title_image');
 const popupImage = document.querySelector('.popup__image');
+
+
 
 function showPopup(popup) {
   popup.classList.add('popup_opened');
 }
+showPopupButtonAdd.addEventListener('click', () => showPopup(cardFormPopup));
+
 
 function showPopupEdit() {
   nameInput.value = username.textContent
@@ -27,28 +30,17 @@ function showPopupEdit() {
 }
 showPopupButtonEdit.addEventListener('click', showPopupEdit);
 
-function closePopupEdit() {
-  editFormPopup.classList.remove('popup_opened');
-}
-editFormPopupClose.addEventListener('click', closePopupEdit);
 
-
-function showPopupAdd() {
-  showPopup(cardFormPopup);
-}
-showPopupButtonAdd.addEventListener('click', showPopupAdd);
-
-function closePopupAdd() {
-  cardFormPopup.classList.remove('popup_opened');
-}
-addFormPopupClose.addEventListener('click', closePopupAdd);
-
-
-function closePopupImages() {
-  imageFormPopup.classList.remove('popup_opened');
-}
-imageFormPopupClose.addEventListener('click', closePopupImages);
-
+function closePopup(popup) {  // передать в аргументах ссылку на ПОПАП, и внутри этой функции у того что было передано в функцию - убрать модификатор.
+        popup.classList.remove('popup_opened');
+    }
+    editFormPopupClose.addEventListener('click', () => closePopup(editFormPopup));
+    //накладываем слушатель на кнопку закрытия попапа, на крестик. Это надо сделать один раз в глобальной области, не в какой-то функции внутри, а просто наложить слушатель изначально на кнопку закрытия попапа
+    addFormPopupClose.addEventListener('click', () => closePopup(cardFormPopup));
+    ////накладываем слушатель на кнопку закрытия попапа, на крестик. Это надо сделать один раз.....
+    imageFormPopupClose.addEventListener('click', () => closePopup(imageFormPopup));
+    ////накладываем слушатель на кнопку закрытия попапа, на крестик. Это надо сделать один раз.....
+ 
 
 function formSubmitHandler (evt) {
     evt.preventDefault();
@@ -56,7 +48,7 @@ function formSubmitHandler (evt) {
     username.textContent = nameInput.value;
     profession.textContent = jobInput.value;
 
-    closePopupEdit();
+    closePopup(editFormPopup); //просто закрыть попап, если это нужно сделать. Не в слушателе, а в любом месте кода где может потребоваться закрыть попап.
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
@@ -93,6 +85,8 @@ const initialCards = [
  const container = document.querySelector('.elements__list');
  const initialCardsform = document.querySelector('.popup__container_add');
  const templateElement = document.querySelector('.template'); //нашли темплейт 
+ const nameInputTitle = initialCardsform.querySelector('.popup__input_type_title'); //находим поле ввода из формы title
+ const linkInput =  initialCardsform.querySelector('.popup__input_type_link'); //находим поле ввода из формы link
 
 function deliteTaskHandler(evt) {
  evt.target.closest('.element').remove(); //метод closest ищет ближайшего родителя- его и добавим
@@ -136,7 +130,6 @@ function showPopupImages (name, link) { //открываем Попап С Ка�
 };
 
 
-
  function renderList() {
   const result = initialCards.map(function(item){
     const newTask = createTaskDomNode(item); //создадим таску
@@ -149,11 +142,9 @@ function showPopupImages (name, link) { //открываем Попап С Ка�
 
 function addTaskFormListener(evt) { //функция создания карточки, которая срабатывает при клике на кнопку формы
   evt.preventDefault(); //останавливаем перезагрузку браузера
-  const nameInput = initialCardsform.querySelector('.popup__input_type_title'); //находим поле ввода из формы title
-  const linkInput =  initialCardsform.querySelector('.popup__input_type_link'); //находим поле ввода из формы link
-
+ 
   const item = { //создает объект с двумя ключами. В одном будет лежать значение из одного поля ввода, в другом - из другого. Этот объект надо будет передать в функцию создания новой карточки
-    name: nameInput.value, //вставим данные из поля с названием
+    name: nameInputTitle.value, //вставим данные из поля с названием
     link: linkInput.value, //вставим данные из другого поля со ссылкой на картинку
   };  
   
@@ -161,21 +152,16 @@ function addTaskFormListener(evt) { //функция создания карто
   // и передает туда объект из предыдущего пункта. Новую карточку сохраняет в этой созданной переменной.
 
 
-
   addTaskListeners(newTask);
 
 
   container.prepend(newTask); // добавляет newTask в разметку страницы, к другим карточкам
 
-  nameInput.value = ''; //очищает поля ввода формы
+  nameInputTitle.value = ''; //очищает поля ввода формы
   linkInput.value = ''; //очищает поля ввода формы
 
-  closePopupAdd(); //закрывает попап
+  closePopup(cardFormPopup); //закрывает попап
 };
 
 renderList();  
 initialCardsform.addEventListener('submit', addTaskFormListener);
-
-
-
-
