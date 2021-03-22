@@ -17,8 +17,18 @@ const popupImage = document.querySelector('.popup__image');
 
 
 
-function showPopup(popup) {
+const handleEscPress = (evt) => { //функция закрытия попапов кнопкой esc
+  if (evt.key === 'keydown') {
+    closePopup(popup);
+}
+  
+}  
+
+
+
+function showPopup(popup) { //функция открытия попапов
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', handleEscPress); //накладываем слушатель на нажатие на кнопку esc + включаем функцию handleEscPress
 }
 showPopupButtonAdd.addEventListener('click', () => showPopup(cardFormPopup));
 
@@ -33,6 +43,7 @@ showPopupButtonEdit.addEventListener('click', showPopupEdit);
 
 function closePopup(popup) {  // передать в аргументах ссылку на ПОПАП, и внутри этой функции у того что было передано в функцию - убрать модификатор.
         popup.classList.remove('popup_opened');
+        document.removeEventListener('keydown', handleEscPress); //удаляем слушатель на нажатие на кнопку esc + включаем функцию handleEscPress
     }
     editFormPopupClose.addEventListener('click', () => closePopup(editFormPopup));
     //накладываем слушатель на кнопку закрытия попапа, на крестик. Это надо сделать один раз в глобальной области, не в какой-то функции внутри, а просто наложить слушатель изначально на кнопку закрытия попапа
@@ -165,3 +176,9 @@ function addTaskFormListener(evt) { //функция создания карто
 
 renderList();  
 initialCardsform.addEventListener('submit', addTaskFormListener);
+
+
+
+
+
+
