@@ -17,12 +17,23 @@ const popupImage = document.querySelector('.popup__image');
 
 
 
-const handleEscPress = (evt) => { //функция закрытия попапов кнопкой esc
-  if (evt.key === 'keydown') {
-    closePopup(popup);
+//функция закрытия попапов на фон
+const closeByOverlayClick = (evt) => {
+  if (evt.target.classList.contains('popup')) { closePopup(evt.target) }
 }
-  
-}  
+editFormPopup.addEventListener('click', closeByOverlayClick)
+cardFormPopup.addEventListener('click', closeByOverlayClick)
+imageFormPopup.addEventListener('click', closeByOverlayClick)
+
+
+//функция закрытия попапов кнопкой esc
+const handleEscPress = (evt) => {
+  const popup = document.querySelector('.popup_opened');
+
+    if (evt.key === 'Escape') {
+      closePopup(popup);
+  }
+  };
 
 
 
@@ -176,9 +187,3 @@ function addTaskFormListener(evt) { //функция создания карто
 
 renderList();  
 initialCardsform.addEventListener('submit', addTaskFormListener);
-
-
-
-
-
-

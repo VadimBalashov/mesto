@@ -1,5 +1,6 @@
 .popup__input_type_error{
     border-bottom: 1px solid #ff0000;
+    margin-bottom: 5px;
 }
 
 
@@ -15,7 +16,9 @@
 .error_visible{
     opacity: 1;
 }
-
+.error_visible :nth-child(1){
+    margin-bottom: 13px;
+}
 .popup__button_invalid{
     border: 1px solid rgba(0, 0, 0, .2);
     color: rgba(0, 0, 0, .5);
