@@ -33,8 +33,8 @@ const showInputError = (formElement, inputElement, {inputErrorClass, errorClass}
 //убирает красное поле и снимает ошибку
 const hideInputError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_type_error');
-  errorElement.classList.remove('error_visible');
+  inputElement.classList.remove(inputErrorClass);
+  errorElement.classList.remove(errorClass);
 };
 
 
