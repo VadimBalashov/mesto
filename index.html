@@ -32,7 +32,7 @@
             <section class="elements">
                 <ul class="elements__list">
 
-                </ul>
+                </ul> 
             </section>
         </main>
 
@@ -42,7 +42,7 @@
     </div>
 
     <div class="popup popup_type_edit">
-        <form class="popup__container" name="edit-profile" novalidate>
+        <form class="popup__container" name="edit-profile">
             <h3 class="popup__title">Редактировать профиль</h3>
             <fieldset name="profile" class="popup__form">
                 <input type="text" id="name" class="popup__input popup__input_type_name" name="name" required placeholder="Имя" minlength="2" maxlength="40">
@@ -56,7 +56,7 @@
     </div>
 
     <div class="popup popup_type_add">
-        <form class="popup__container popup__container_add" name="add-profile" novalidate>
+        <form class="popup__container popup__container_add" name="add-profile">
             <h3 class="popup__title">Новое место</h3>
             <fieldset name="profile" class="popup__form">
                 <input type="text" id="name-card" class="popup__input popup__input_type_title" name="title" required placeholder="Название" minlength="2" maxlength="30">
@@ -64,7 +64,7 @@
                 <input type="url" id="link" class="popup__input popup__input_type_link" name="link" required placeholder="Ссылка на картинку">
                 <span id="link-error" class="error"></span>
             </fieldset>
-            <button type="submit" class="popup__submit">Создать</button>
+            <button type="submit" class="popup__submit popup__submit_invalid">Создать</button>
             <button type="button" class="popup__close" aria-label="close"></button>
         </form>
     </div>

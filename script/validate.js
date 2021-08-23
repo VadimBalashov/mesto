@@ -1,98 +1,98 @@
+const configValid = {
+    formSelector: '.popup__container',
+    submitButtonSelector: '.popup__submit',
+    inactiveButtonClass: 'popup__submit_invalid',
+    inputSelector: '.popup__input',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: {
+        empty:'Это поле обязательно',
+        url:'Введите правильный url',
+        minSimbols:'Минимальное колличество символов 2'
+    }
+}
 
-const allInputsEmpty = (inputList) => {
-    // Если true - все поля пустые
-    return !inputList.some(inputElement => inputElement.value.length > 0); //если во всем инпут-листе не найдется ни одного поля значение которого больше 0 - возвращаем ложь
-};
 
 
-const hasInvalidInput = (inputList) => { //проверяем все ли поля пустые?
-  return inputList.some(inputElement => !inputElement.validity.valid);
+//Валидный ли инпут
+function isFieldValid(input, config) {
+    input.setCustomValidity('');
+
+    if (input.validity.valueMissing){
+        input.setCustomValidity(config.errorClass.empty);
+        input.classList.add(config.inputErrorClass);
+        return false
+    }else{
+        input.classList.remove(config.inputErrorClass);
+    }
+
+    if (input.validity.tooShort){
+        input.setCustomValidity(config.errorClass.minSimbols);
+        input.classList.add(config.inputErrorClass);
+        return false
+    }
+
+    if (input.validity.typeMismatch && input.type === 'url'){
+        input.setCustomValidity(config.errorClass.url);
+        input.classList.add(config.inputErrorClass);
+        return false
+    }
+
+    return input.checkValidity();
+}
+//сама валидация
+function validateField(input, config) {
+    const errorElement = input.parentNode.querySelector(`#${input.id}-error`);
+    isFieldValid(input, config);
+
+    errorElement.textContent = input.validationMessage;
+}
+//Состояние кнопки
+function setSubmitButtonState (button, state, config) {
+    console.log(state);
+    if(state){
+        
+        button.classList.remove(config.inactiveButtonClass);
+        button.disabled = false;
+
+        return true
+    }
+
+    button.classList.add(config.inactiveButtonClass);
+    button.disabled = true;
+}
+//обработчик
+function handlerInputForm(input, config) {
+    const form = input.parentNode;
+    const submitButton = form.querySelector(config.submitButtonSelector);
+
+    validateField(input, config);
+    
+
+    if(form.checkValidity()){
+        setSubmitButtonState(submitButton, true, config);
+    } else{
+        setSubmitButtonState(submitButton, false, config);
+    }
+}
+
+
+
+
+const setEventListeners = (formElement, config) => {
+    const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+    
+    inputList.forEach((inputElement) => {
+      inputElement.addEventListener('input', () => {handlerInputForm(inputElement, config);}, true);
+    });
+
   };
 
+function enableValidation (config){
+    const form= Array.from(document.querySelectorAll('.popup__container'));
 
-const toggleButtonState = (inputList, buttonElement, {inactiveButtonClass}) => {
-  if (hasInvalidInput(inputList) || allInputsEmpty(inputList)) { //если хотя бы один импут невалидный - отключаем кнопку
-    buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.setAttribute('disabled', true); //выключим кнопку
-  } else {
-    buttonElement.classList.remove(inactiveButtonClass);
-    buttonElement.removeAttribute('disabled');
-  }
-};
+   form.forEach((forme) => {
+    setEventListeners(forme, config);
+   });
 
-
-//красит поле красным и выводит ошибку
-const showInputError = (formElement, inputElement, {inputErrorClass, errorClass}) => {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add(inputErrorClass);
-  errorElement.textContent = inputElement.validationMessage;
-  errorElement.classList.add(errorClass);
-};
-
-
-//убирает красное поле и снимает ошибку
-const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove(inputErrorClass);
-  errorElement.classList.remove(errorClass);
-};
-
-
-
-const checkInput = (formElement, inputElement, rest) => { //здесь проверяем валидность какого-то одного импута
-  if (inputElement.validity.valid) {
-    hideInputError(formElement, inputElement, rest);// Убрать подкрашивание поля красным 
-  } else {
-    showInputError(formElement, inputElement, rest);// Подкрасить поле красным 
-
-  }
-};
-
-
-//функция навесит обработчики на поля формы (инпутов); вот форма :(formElement) -она поступает на вход. Начинаем с ней работать .
-const setInputListeners = (formElement, {inputSelector, submitButtonSelector, ...rest }) => {
-const inputList = Array.from(formElement.querySelectorAll(inputSelector));// из этой формы вытаскиваем все импуты
-const buttonElement = formElement.querySelector(submitButtonSelector); //нашли кнопку отправки 
-
-
-inputList.forEach( //навесить обработчики событий полей
- inputElement => {inputElement.addEventListener('input', () => { //пользователь будет что-то вводить в эти поля , а мы будем проверять валидность
-  checkInput(formElement, inputElement, rest);//проверить состояние поля (валидно ли оно?)
-  toggleButtonState(inputList, buttonElement, rest);//переключить состояние кнопки
-  });
-
-   toggleButtonState(inputList, buttonElement, rest);
- }
- );
-};
-
-
-
-
-const enableValidation = ({formSelector, ...rest}) => { //включаем валидацию для всех форм
-  const formList = Array.from(document.querySelectorAll(formSelector)); //найдем все формы, сразу с помощью Array.from- преобразуем их в массив
-
-  formList.forEach(//"для каждой формы..""
-    formElement => { //входной аргумент - элемент формы
-      formElement.addEventListener('submit', (event) => {  //навешиваем обработчик (событие сабмит)
-event.preventDefault();
-      });
-      setInputListeners(formElement, rest);//навесить слушатели событий для полей формы(вызываем функцию setInputListeners и передаем туда форму)
-    }
-  );
-};
-
-
-
-//запустит процесс наложения валидации на формы 
-enableValidation({
-  formSelector: '.popup__container',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__button_invalid',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'error_visible'
-});
-
-
-
+}
+enableValidation(configValid);
